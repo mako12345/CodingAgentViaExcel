@@ -1,0 +1,69 @@
+﻿* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d1117; color: #c9d1d9; font-family: Arial, sans-serif; font-size: 13px; }
+.navbar { display:flex; align-items:center; background:#161b22; padding:10px 20px;
+          border-bottom:1px solid #30363d; gap:16px; }
+.logo { font-size:16px; font-weight:bold; color:#58a6ff; }
+.nav-links { display:flex; gap:4px; }
+.nav-links a { color:#8b949e; text-decoration:none; padding:6px 12px;
+               border-radius:6px; transition:all 0.2s; }
+.nav-links a:hover,.nav-links a.active { background:#21262d; color:#c9d1d9; }
+.status-badge { margin-left:auto; padding:4px 10px; border-radius:12px;
+                font-size:11px; font-weight:bold; }
+.status-badge.connected { background:#1f3a2a; color:#3fb950; }
+.status-badge.disconnected { background:#3d1c1c; color:#f85149; }
+.main-layout { display:flex; gap:12px; padding:12px; height:calc(100vh - 50px); }
+.panel { background:#161b22; border:1px solid #30363d; border-radius:8px;
+         overflow:hidden; }
+.panel-header { background:#21262d; padding:8px 14px; font-weight:bold;
+                color:#58a6ff; font-size:12px; border-bottom:1px solid #30363d;
+                display:flex; align-items:center; }
+.panel-3d { flex:1; display:flex; flex-direction:column; min-width:0; }
+.panel-3d canvas { flex:1; width:100% !important; height:100% !important; }
+.sidebar { width:300px; display:flex; flex-direction:column; gap:8px;
+           overflow-y:auto; }
+
+.drone-card { padding:10px 14px; border-bottom:1px solid #21262d;
+              transition:background 0.2s; cursor:pointer; }
+.drone-card:hover { background:#21262d; }
+.drone-card:last-child { border-bottom:none; }
+.drone-header { display:flex; justify-content:space-between; align-items:center;
+                margin-bottom:6px; }
+.drone-id { font-weight:bold; color:#58a6ff; font-size:13px; }
+.drone-status { padding:2px 8px; border-radius:10px; font-size:10px; font-weight:bold; }
+.status-flying { background:#1f3a2a; color:#3fb950; }
+.status-warning { background:#3d2e10; color:#e3b341; }
+.status-critical { background:#3d1c1c; color:#f85149; }
+.status-landing { background:#1c2d3d; color:#58a6ff; }
+.status-returning { background:#2d1c3d; color:#bc8cff; }
+.drone-metrics { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+.metric { background:#0d1117; border-radius:4px; padding:4px 8px; }
+.metric-label { color:#6e7681; font-size:10px; }
+.metric-value { color:#c9d1d9; font-weight:bold; font-size:13px; }
+.bat-bar-wrap { margin-top:6px; background:#21262d; border-radius:3px; height:4px; }
+.bat-bar { height:4px; border-radius:3px; transition:width 0.5s; }
+.cmd-area { padding:10px 14px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+select { background:#21262d; border:1px solid #30363d; color:#c9d1d9;
+         padding:5px 8px; border-radius:6px; font-size:12px; }
+.btn-primary { background:#1f6feb; color:#fff; border:none; padding:6px 14px;
+               border-radius:6px; cursor:pointer; font-size:12px; }
+.btn-primary:hover { background:#388bfd; }
+.btn-sm { background:#21262d; color:#8b949e; border:1px solid #30363d;
+          padding:3px 8px; border-radius:4px; cursor:pointer; font-size:11px;
+          margin-left:auto; }
+.btn-sm:hover { color:#c9d1d9; }
+.page-content { padding:16px; }
+.log-container { overflow-y:auto; max-height:calc(100vh - 160px); }
+.log-table { width:100%; border-collapse:collapse; }
+.log-table th { background:#21262d; padding:8px 12px; text-align:left;
+                color:#8b949e; font-size:11px; position:sticky; top:0; }
+.log-table td { padding:6px 12px; border-bottom:1px solid #21262d; font-size:12px; }
+.log-time { color:#6e7681; white-space:nowrap; }
+.log-badge { padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; }
+.log-INFO .log-badge { background:#1f3a2a; color:#3fb950; }
+.log-WARN .log-badge { background:#3d2e10; color:#e3b341; }
+.log-ERROR .log-badge { background:#3d1c1c; color:#f85149; }
+.settings-form { padding:20px; }
+.form-group { margin-bottom:16px; }
+.form-group label { display:block; margin-bottom:6px; color:#8b949e; font-size:12px; }
+.form-group input { background:#21262d; border:1px solid #30363d; color:#c9d1d9;
+                    padding:8px 12px; border-radius:6px; width:100%; font-size:13px; }

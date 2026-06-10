@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DroneMonitor</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+<nav class="navbar">
+  <span class="logo">🚁 DroneMonitor</span>
+  <div class="nav-links">
+    <a href="/" class="active">ダッシュボード</a>
+    <a href="/logs">ログ</a>
+    <a href="/settings">設定</a>
+  </div>
+  <span id="conn-status" class="status-badge disconnected">切断</span>
+</nav>
+<div class="main-layout">
+  <div class="panel panel-3d">
+    <div class="panel-header">3D ポジションビュー
+      <button onclick="resetCamera()" class="btn-sm">カメラリセット</button>
+    </div>
+    <canvas id="three-canvas"></canvas>
+  </div>
+  <div class="sidebar">
+    <div class="panel" id="status-panel">
+      <div class="panel-header">ドローン一覧</div>
+      <div id="drone-list"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">コマンド送信</div>
+      <div class="cmd-area">
+        <select id="cmd-drone"></select>
+        <select id="cmd-type">
+          <option value="land">着陸</option>
+          <option value="takeoff">離陸</option>
+          <option value="return_home">帰還</option>
+        </select>
+        <button onclick="sendCommand()" class="btn-primary">実行</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">バッテリー推移</div>
+      <canvas id="bat-chart" height="160"></canvas>
+    </div>
+    <div class="panel">
+      <div class="panel-header">高度推移</div>
+      <canvas id="alt-chart" height="160"></canvas>
+    </div>
+  </div>
+</div>
+<script src="/static/js/three_view.js"></script>
+<script src="/static/js/dashboard.js"></script>
+</body>
+</html>

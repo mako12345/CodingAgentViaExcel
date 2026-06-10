@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ログ - DroneMonitor</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+<nav class="navbar">
+  <span class="logo">🚁 DroneMonitor</span>
+  <div class="nav-links">
+    <a href="/">ダッシュボード</a>
+    <a href="/logs" class="active">ログ</a>
+    <a href="/settings">設定</a>
+  </div>
+</nav>
+<div class="page-content">
+  <div class="panel">
+    <div class="panel-header">システムログ
+      <div style="display:inline-flex;gap:8px;margin-left:16px;">
+        <select id="level-filter" onchange="filterLogs()">
+          <option value="">すべて</option>
+          <option value="INFO">INFO</option>
+          <option value="WARN">WARN</option>
+          <option value="ERROR">ERROR</option>
+        </select>
+        <button onclick="refreshLogs()" class="btn-sm">更新</button>
+        <button onclick="clearDisplay()" class="btn-sm">クリア</button>
+      </div>
+    </div>
+    <div class="log-stats" id="log-stats"></div>
+    <div class="log-container" id="log-container">
+      <table class="log-table">
+        <thead><tr><th>時刻</th><th>レベル</th><th>メッセージ</th></tr></thead>
+        <tbody id="log-tbody">
+        {% for log in logs %}
+        <tr class="log-row log-{{ log.level }}">
+          <td class="log-time">{{ log.time }}</td>
+          <td><span class="log-badge log-{{ log.level }}">{{ log.level }}</span></td>
+          <td>{{ log.msg }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+function filterLogs(){
+  const lv = document.getElementById('level-filter').value;
+  fetch('/api/logs' + (lv ? '?level='+lv : ''))
+    .then(r=>r.json()).then(renderLogs);
+}
+function refreshLogs(){filterLogs();}
+function clearDisplay(){document.getElementById('log-tbody').innerHTML='';}
+function renderLogs(data){
+  const tb = document.getElementById('log-tbody');
+  tb.innerHTML = data.map(l=>
+    `<tr class="log-row log-${l.level}">
+      <td class="log-time">${l.time}</td>
+      <td><span class="log-badge log-${l.level}">${l.level}</span></td>
+      <td>${l.msg}</td>
+    </tr>`
+  ).join('');
+}
+</script>
+</body>
+</html>

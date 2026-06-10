@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>設定 - DroneMonitor</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <span class="logo">🚁 DroneMonitor</span>
+  <div class="nav-links">
+    <a href="/">ダッシュボード</a>
+    <a href="/logs">ログ</a>
+    <a href="/settings" class="active">設定</a>
+  </div>
+</nav>
+<div class="page-content">
+  <div class="panel" style="max-width:600px;">
+    <div class="panel-header">システム設定</div>
+    <div class="settings-form">
+      <div class="form-group">
+        <label>更新間隔 (秒)</label>
+        <input type="number" id="update_interval" step="0.1" min="0.1"
+               value="{{ settings.update_interval }}">
+      </div>
+      <div class="form-group">
+        <label>グリッドサイズ</label>
+        <input type="number" id="grid_size" min="5" max="100"
+               value="{{ settings.grid_size }}">
+      </div>
+      <div class="form-group">
+        <label>バッテリー警告閾値 (%)</label>
+        <input type="number" id="alert_battery" min="5" max="50"
+               value="{{ settings.alert_battery }}">
+      </div>
+      <div class="form-group">
+        <label>高度警告閾値 (m)</label>
+        <input type="number" id="alert_altitude" min="10" max="200"
+               value="{{ settings.alert_altitude }}">
+      </div>
+      <div id="save-msg" style="color:#4caf50;display:none;">保存しました ✓</div>
+      <button onclick="saveSettings()" class="btn-primary" style="margin-top:16px;">
+        設定を保存
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+function saveSettings(){
+  const data = {
+    update_interval: parseFloat(document.getElementById('update_interval').value),
+    grid_size: parseInt(document.getElementById('grid_size').value),
+    alert_battery: parseInt(document.getElementById('alert_battery').value),
+    alert_altitude: parseInt(document.getElementById('alert_altitude').value)
+  };
+  fetch('/api/settings',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)})
+  .then(r=>r.json()).then(d=>{
+    if(d.status==='ok'){
+      const m=document.getElementById('save-msg');
+      m.style.display='block';
+      setTimeout(()=>m.style.display='none',2000);
+    }
+  });
+}
+</script>
+</body>
+</html>
