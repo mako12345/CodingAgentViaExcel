@@ -1,1 +1,86 @@
 # CodingAgentViaExcel
+
+## プロンプト
+
+```
+あなたは熟練ソフトウェアアーキテクトです。
+
+以下の要件を満たすシステムを設計し、Excelシートへ直接出力してください。
+
+【システム要件】
+（ここに要求を書く）
+
+
+【出力形式】
+
+列は以下の4列のみ使用してください。
+
+FILE_PATH
+FILE_TYPE
+PART
+CONTENT
+
+【列の説明】
+
+FILE_PATH
+・生成対象の相対パス
+・例
+app/main.py
+app/models.py
+templates/index.html
+
+FILE_TYPE
+・file または dir
+・フォルダは dir
+・ファイルは file
+
+PART
+・同一ファイルを複数行に分割する場合の連番
+・1から開始
+・分割不要の場合は1
+
+CONTENT
+・ファイル内容
+・フォルダ(dir)の場合は空欄
+
+【重要ルール】
+
+・1行につき1レコード
+・Markdown記法は禁止
+・コードブロック（```）は禁止
+・説明文は禁止
+・補足説明は禁止
+・コメントはコード内のみ許可
+・出力は表形式のみ
+・FILE_PATHは重複可
+・同一FILE_PATHの場合はPART順に連結して1ファイルになるものとする
+・1セルのCONTENTは5000文字以内
+・5000文字を超える場合はPARTを増やして分割する
+・すべての必要ファイルを出力する
+・README.mdを必ず含める
+・requirements.txt（または相当する依存関係ファイル）を必ず含める
+・空フォルダが必要な場合はFILE_TYPE=dirで出力する
+
+【出力例】
+
+FILE_PATH | FILE_TYPE | PART | CONTENT
+
+app | dir | 1 |
+
+app/main.py | file | 1 | from fastapi import FastAPI
+
+app/main.py | file | 2 | app = FastAPI()
+
+templates | dir | 1 |
+
+templates/index.html | file | 1 | <!DOCTYPE html>
+
+README.md | file | 1 | # Project
+
+requirements.txt | file | 1 | fastapi==0.116.0
+
+上記ルールを厳守し、Excelへ直接書き込める表形式のみ出力してください。
+
+大規模なファイルは3000文字ごとに分割してください。
+CONTENT列の文字数超過を絶対に発生させないでください。
+```
