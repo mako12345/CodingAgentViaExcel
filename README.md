@@ -10,7 +10,6 @@
 【システム要件】
 （ここに要求を書く）
 
-
 【出力形式】
 
 列は以下の4列のみ使用してください。
@@ -60,6 +59,11 @@ CONTENT
 ・README.mdを必ず含める
 ・requirements.txt（または相当する依存関係ファイル）を必ず含める
 ・空フォルダが必要な場合はFILE_TYPE=dirで出力する
+・CONTENT列では改行を禁止します。改行は必ず<<NL>>を使用してください。
+例
+from fastapi import FastAPI<<NL>><<NL>>app = FastAPI()
+・タブは<<TAB>>を使用してください。
+・セル内改行は禁止です。
 
 【出力例】
 
@@ -80,7 +84,4 @@ README.md | file | 1 | # Project
 requirements.txt | file | 1 | fastapi==0.116.0
 
 上記ルールを厳守し、Excelへ直接書き込める表形式のみ出力してください。
-
-大規模なファイルは3000文字ごとに分割してください。
-CONTENT列の文字数超過を絶対に発生させないでください。
 ```
