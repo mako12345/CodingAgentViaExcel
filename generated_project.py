@@ -3,12 +3,15 @@ from pathlib import Path
 from collections import defaultdict
 from zipfile import ZipFile, ZIP_DEFLATED
 from datetime import datetime
+import sys
 
-EXCEL_FILE = "project.xlsx"
+args = sys.argv
+
+EXCEL_FILE = args[1]
 OUTPUT_DIR = "generated_project"
 
 def write_log(message):
-print(f"[{datetime.now():%Y-%m-%d %H:%M:%S}] {message}")
+    print(f"[{datetime.now():%Y-%m-%d %H:%M:%S}] {message}")
 
 def create_project():
     df = pd.read_excel(EXCEL_FILE)
@@ -47,6 +50,8 @@ def create_project():
 
         if pd.notna(row["CONTENT"]):
             content = str(row["CONTENT"])
+            content = content.replace("<<NL>>", "\n")
+            content = content.replace("<TAB>>", "\t")
 
         target = output_root / file_path
 
@@ -129,7 +134,7 @@ def create_readme_if_missing():
 
         write_log("README.md自動生成")
 
-if **name** == "**main**":
+if __name__ == "__main__":
     create_project()
     create_readme_if_missing()
     create_zip()
