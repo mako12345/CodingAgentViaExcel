@@ -50,8 +50,6 @@ def create_project():
 
         if pd.notna(row["CONTENT"]):
             content = str(row["CONTENT"])
-            content = content.replace("<<NL>>", "\n")
-            content = content.replace("<TAB>>", "\t")
 
         target = output_root / file_path
 
@@ -80,7 +78,10 @@ def create_project():
         merged_content = "".join(
             content
             for _, content in parts
-        )
+        )        
+        
+        merged_content = merged_content.replace("<<NL>>", "\n")
+        merged_content = merged_content.replace("<<TAB>>", "\t")
 
         target = output_root / file_path
 
