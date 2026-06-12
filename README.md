@@ -64,6 +64,7 @@ CONTENT
 from fastapi import FastAPI<<NL>><<NL>>app = FastAPI()
 ・タブは<<TAB>>を使用してください。
 ・セル内改行は禁止です。
+・PART分割時、<<NL>> や <<TAB>> トークンの途中で切断しないよう、分割位置を調整してください。
 
 【出力例】
 
